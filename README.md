@@ -25,8 +25,10 @@ and makes you *measure* the result with the native `/context` and `/cost` comman
 
 ## Installation
 
-Run these steps inside Claude Code (the Claude app / Claude Code chat). The /plugin commands are Claude
-slash-commands, so they must be entered in Claude, not in a normal terminal shell.
+`skillit` is a **Claude Code** plugin. Run the `/plugin` and `/skillit:*` steps below inside a Claude Code
+session (the CLI, or the Claude Code IDE integration) — *not* the standalone Claude desktop chat app, which
+doesn't support Claude Code plugins. The shell commands (`git clone`, `claude --plugin-dir …`) run in your
+terminal.
 
 ### From the marketplace (recommended)
 
