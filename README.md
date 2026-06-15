@@ -17,7 +17,7 @@ throw away. It bakes in the discipline from Anthropic's
 [prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
 and Quinton Wall's
 [token-efficient skills post](https://www.quintonwall.com/writing/best-practices-to-make-claude-code-skills-token-efficient),
-and makes you *measure* the result with the native `/context` and `/cost` commands.
+and makes you *measure* the result with the native `/context` and `/cost` commands. TL;DR: Less tokens spent = more runway for you to ship amazing products. 
 
 ## Installation
 
