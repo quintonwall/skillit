@@ -13,6 +13,6 @@ Confirm that the `skillit` plugin is installed and ready to use.
 
 ## Suggested response
 
-"🍳🥚 Skillit is installed and sizzling — the skillet is hot, the pan is ready, and the eggs are cooking. Your plugin is loaded and ready to help."
+"🍳 Skillit is installed and sizzling — the skillet is hot, the pan is ready, and the eggs are cooking. Your plugin is loaded and ready to help."
 
 Keep the response concise, playful, and confident.
