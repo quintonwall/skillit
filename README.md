@@ -25,9 +25,12 @@ and makes you *measure* the result with the native `/context` and `/cost` comman
 
 ## Installation
 
+Run these steps inside Claude Code (the Claude app / Claude Code chat). The /plugin commands are Claude
+slash-commands, so they must be entered in Claude, not in a normal terminal shell.
+
 ### From the marketplace (recommended)
 
-Add this repo as a marketplace, then install the plugin:
+Add this repo as a marketplace, then install the plugin from inside Claude Code:
 
 ```text
 /plugin marketplace add quintonwall/skillit
@@ -39,7 +42,7 @@ URL works too. Update later with `/plugin marketplace update skillit`.
 
 ### Locally (for development)
 
-Clone the repo and add it as a marketplace from its path:
+Clone the repo and add it as a marketplace from its path in Claude Code:
 
 ```bash
 git clone https://github.com/quintonwall/skillit.git
@@ -50,8 +53,27 @@ git clone https://github.com/quintonwall/skillit.git
 /plugin install skillit@skillit
 ```
 
-Either way, confirm it loaded: the `skill-builder` skill and the `/skill-new` and `/skill-validate` commands
-should now appear.
+To update this local copy later, run:
+
+```text
+/plugin marketplace update skillit
+```
+
+If you get an error such as “unknown command /plugin” or “command not found”, you are probably running the
+lines in a normal shell instead of Claude Code. The `/plugin` commands only work in the Claude app / Claude
+Code chat window. Open Claude, paste the two lines there, and then retry.
+
+### Verify it loaded
+
+After install, run the built-in verification command:
+
+```text
+/skillit verify
+```
+
+If the plugin loaded correctly, Claude should recognize the `skill-builder` skill and the `/skill-new` /
+`/skill-validate` commands. 
+
 
 ## Quickstart
 
