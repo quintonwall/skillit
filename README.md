@@ -12,10 +12,6 @@ scoped tools. The plugin teaches token-efficient skills by being one.
 
 ## Why
 
-You're short on cash, shorter on time, and hunting product-market fit. Tokens are dollars and dollars are
-runway — and a bloated skill quietly taxes *every* session, because its frontmatter loads whether you use it
-or not. Cutting that cost means more experiments per dollar: more shots on goal before the money runs out.
-
 `skillit` helps you build skills that are lean enough to run constantly and fast enough to ship, test, and
 throw away. It bakes in the discipline from Anthropic's
 [prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
