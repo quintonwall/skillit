@@ -1,6 +1,6 @@
 # Skill scoring rubric
 
-The single source of truth for `/skill-validate` and the `skill-scorer` agent. Both read this file; neither
+The single source of truth for `/skillit:skill-validate` and the `skill-scorer` agent. Both read this file; neither
 restates it (eliminate duplicate state).
 
 Score each dimension 0–2: **2** = meets the bar, **1** = partial / minor issue, **0** = fails. Sum to a grade

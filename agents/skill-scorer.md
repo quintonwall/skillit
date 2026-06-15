@@ -1,6 +1,6 @@
 ---
 name: skill-scorer
-description: Scores a Claude Code skill against the skillit rubric and returns a structured scorecard with prioritized fixes. Invoked by /skill-validate.
+description: Scores a Claude Code skill against the skillit rubric and returns a structured scorecard with prioritized fixes. Invoked by /skillit:skill-validate.
 tools: Read, Glob, Bash
 ---
 

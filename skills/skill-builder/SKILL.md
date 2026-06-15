@@ -61,7 +61,7 @@ Apply: have the user run `/context` and note the starting number.
 
 ### 3. Scaffold
 Teach the 3-tier directory layout and the body-size limits. Reference: `references/anatomy.md`.
-Apply: run `/skill-new` together (or copy `assets/templates/SKILL.template.md`).
+Apply: run `/skillit:skill-new` together (or copy `assets/templates/SKILL.template.md`).
 
 ### 4. The frontmatter (highest leverage)
 Teach the capability + when-to-use formula, why trigger-phrase phrasebooks waste tokens, and the field
@@ -80,7 +80,7 @@ Apply: tighten the description, enforce progressive disclosure, delete duplicate
 
 ### 7. Validate & re-measure
 Teach what the rubric checks and why re-measuring closes the loop. Reference: `references/rubric.md`.
-Apply: run `/skill-validate`, fix the top issues, then re-run `/context` and `/cost` against the baseline.
+Apply: run `/skillit:skill-validate`, fix the top issues, then re-run `/context` and `/cost` against the baseline.
 Translate the cost into founder terms — roughly what a run costs and how many experiments the savings buy.
 
 ## Done when

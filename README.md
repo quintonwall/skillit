@@ -42,43 +42,72 @@ URL works too. Update later with `/plugin marketplace update skillit`.
 
 ### Locally (for development)
 
-Clone the repo and add it as a marketplace from its path in Claude Code:
+When you're hacking on `skillit` itself, load the checkout directly with the `--plugin-dir` flag instead of
+the marketplace install flow. This is the fastest dev loop and avoids the marketplace-registration issues
+that can crop up with local installs.
+
+**1. Clone the repo:**
 
 ```bash
 git clone https://github.com/quintonwall/skillit.git
 ```
 
-```text
-/plugin marketplace add ./skillit
-/plugin install skillit@skillit
+**2. Launch the Claude Code CLI pointed at the checkout.** Pass the plugin directory with `--plugin-dir`
+(repeat the flag to load more than one plugin):
+
+```bash
+claude --plugin-dir /path/to/skillit
 ```
 
-To update this local copy later, run:
+If you're already inside the cloned folder, `.` works too:
 
-```text
-/plugin marketplace update skillit
+```bash
+claude --plugin-dir .
 ```
 
-If you get an error such as “unknown command /plugin” or “command not found”, you are probably running the
-lines in a normal shell instead of Claude Code. The `/plugin` commands only work in the Claude app / Claude
-Code chat window. Open Claude, paste the two lines there, and then retry.
+A local `--plugin-dir` copy takes precedence over a same-named marketplace install for that session, so you
+can safely test changes even if you also have `skillit` installed from the marketplace.
+
+> There is **no** `/plugin-dir` slash command — local loading is the `--plugin-dir` launch flag only.
+
+**3. Iterate without restarting.** After editing any plugin file (skills, commands, agents, hooks), reload
+in-session:
+
+```text
+/reload-plugins
+```
+
+This re-reads skills, agents, hooks, commands, and plugin MCP/LSP servers. (If the plugin exposes MCP
+servers with non-deferred tools, Claude will ask you to confirm with `/reload-plugins --force`, since
+reloading invalidates the prompt cache.)
+
+If you'd rather install it like a normal user, see [From the marketplace (recommended)](#from-the-marketplace-recommended)
+above.
 
 ### Verify it loaded
 
-After install, run the built-in verification command:
+Whichever route you used, confirm the plugin is live:
 
 ```text
-/skillit verify
+/skillit:verify
 ```
 
-If the plugin loaded correctly, Claude should recognize the `skill-builder` skill and the `/skill-new` /
-`/skill-validate` commands. 
+Plugin commands are namespaced with the plugin name, so you type `/skillit:verify` (and `/skillit:skill-new`,
+`/skillit:skill-validate`) — the `skillit:` prefix is required, not just a display label.
+
+If it loaded correctly, Claude recognizes the `skill-builder` skill plus the `/skillit:skill-new` and
+`/skillit:skill-validate` commands, and you'll get a witty "sizzling" confirmation. If nothing happens,
+re-check the `--plugin-dir` path (or run `/reload-plugins`) and that you launched from the right directory.
 
 
 ## Quickstart
 
 There's no wizard — you just talk to Claude, and the `skill-builder` teacher walks you through it.
 Here's a complete run, from idea to a shipped skill. (Numbers below are illustrative.)
+
+> **Testing locally?** Launch with `claude --plugin-dir .` (see [Locally (for development)](#locally-for-development)),
+> and run `/reload-plugins` after any edit to a skill, command, or hook so your changes take effect without
+> restarting.
 
 **1. Ask for what you want.**
 ```text
@@ -100,9 +129,9 @@ You:  It writes release notes from commits since the last tag. Use it when I'm
       cutting a release. It needs to run git and write a file.
 ```
 
-**3. It scaffolds the 3-tier structure** (this is what `/skill-new` does):
+**3. It scaffolds the 3-tier structure** (this is what `/skillit:skill-new` does):
 ```text
-skillit:  Running /skill-new …
+skillit:  Running /skillit:skill-new …
           Created skills/release-notes/
             ├── SKILL.md       ← frontmatter + workflow
             └── references/    ← deep detail, loaded only when needed
@@ -125,7 +154,7 @@ group them → write the notes) and pushing anything bulky into `references/`.
 
 **6. Validate and re-measure before shipping.**
 ```text
-You:  /skill-validate
+You:  /skillit:skill-validate
 skillit:  Scorecard — release-notes
             Description quality ...... 2/2
             Body size & focus ........ 2/2
@@ -147,11 +176,11 @@ That `+0.3k` always-on is the whole point: a skill lean enough to run all day wi
 | Component | What it does |
 | --- | --- |
 | `skill-builder` skill | A patient teacher that guides you idea → validated skill, one concept at a time, and answers questions as you go. Trigger it by asking to build, improve, or learn about a skill. |
-| `/skill-new` | Scaffolds a best-practice 3-tier skill from your idea. |
-| `/skill-validate` | Scores a skill against the rubric (via the `skill-scorer` subagent) and lists prioritized fixes. |
+| `/skillit:skill-new` | Scaffolds a best-practice 3-tier skill from your idea. |
+| `/skillit:skill-validate` | Scores a skill against the rubric (via the `skill-scorer` subagent) and lists prioritized fixes. |
 | `skill-scorer` agent | Does the heavy scoring off your main context, then returns a compact scorecard. |
 | `references/` | The durable knowledge: anatomy, frontmatter, token-optimization, prompting, rubric. |
-| hook | A cheap nudge to run `/skill-validate` after you edit a `SKILL.md`. No model call. |
+| hook | A cheap nudge to run `/skillit:skill-validate` after you edit a `SKILL.md`. No model call. |
 
 ## How skillit relates to the official skill-creator
 
@@ -176,4 +205,4 @@ output quality once it's structurally sound.
 ## Design principle
 
 `skillit` measures before it optimizes and never duplicates state — the scoring rubric lives in exactly one
-place (`references/rubric.md`), shared by the `/skill-validate` command and the `skill-scorer` agent.
+place (`references/rubric.md`), shared by the `/skillit:skill-validate` command and the `skill-scorer` agent.

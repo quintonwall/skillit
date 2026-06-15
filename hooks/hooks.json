@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "input=$(cat); printf '%s' \"$input\" | grep -q 'SKILL\\.md' && printf '{\"systemMessage\":\"\\ud83c\\udf73 A SKILL.md changed \\u2014 run /skill-validate to score its token efficiency.\"}' || true"
+            "command": "input=$(cat); printf '%s' \"$input\" | grep -q 'SKILL\\.md' && printf '{\"systemMessage\":\"\\ud83c\\udf73 A SKILL.md changed \\u2014 run /skillit:skill-validate to score its token efficiency.\"}' || true"
           }
         ]
       }

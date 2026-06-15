@@ -28,5 +28,5 @@ Authoring checklist (delete before shipping):
 - body: workflow only, under 500 lines / ~6 KB; push catalogs and rules into references/
 - references/: one focused file per topic, loaded via inline pointers above
 - allowed-tools (in plugin command/agent configs): scoped to what's actually used, never *
-- run /skill-validate, then /context and /cost to confirm a small footprint
+- run /skillit:skill-validate, then /context and /cost to confirm a small footprint
 -->

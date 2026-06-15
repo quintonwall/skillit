@@ -4,7 +4,7 @@ argument-hint: [skill-name]
 allowed-tools: Read, Write, AskUserQuestion
 ---
 
-# /skill-new
+# /skillit:skill-new
 
 Scaffold a new skill directory following the `skillit` best-practice structure. Bias toward doing the work —
 create the files, don't just describe them.
@@ -34,6 +34,6 @@ create the files, don't just describe them.
    (one or two sentences, no phrasebook), and the validated `name`. Leave the body as a workflow skeleton.
 
 5. **Report.** Show the created paths and tell the user the next steps: write the body, then run
-   `/skill-validate`, then `/context` and `/cost` to confirm a small footprint. 🍳
+   `/skillit:skill-validate`, then `/context` and `/cost` to confirm a small footprint. 🍳
 
 Do not pad the SKILL.md with rules or catalogs — those go in `references/` later, loaded on demand.

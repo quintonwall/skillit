@@ -4,7 +4,7 @@ argument-hint: [path-to-skill-dir-or-SKILL.md]
 allowed-tools: Task, Read
 ---
 
-# /skill-validate
+# /skillit:skill-validate
 
 Score a skill against the `skillit` rubric and report a graded scorecard. The heavy reading and scoring runs
 in a subagent so it stays off the main context — itself a token-efficiency demonstration.
