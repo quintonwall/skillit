@@ -1,0 +1,14 @@
+{
+  "name": "skillit",
+  "owner": {
+    "name": "Quinton Wall",
+    "email": "hello@quinton.me"
+  },
+  "plugins": [
+    {
+      "name": "skillit",
+      "source": "./",
+      "description": "Teach and validate token-efficient Claude Code skills. Make your skills sizzle."
+    }
+  ]
+}

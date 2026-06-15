@@ -1,0 +1,10 @@
+{
+  "name": "skillit",
+  "version": "0.1.0",
+  "description": "Teaches and validates token-efficient Claude Code skills. Guides you from idea to a slim, well-structured skill, then scores its token footprint. Make your skills sizzle.",
+  "author": {
+    "name": "Quinton Wall",
+    "email": "hello@quinton.me"
+  },
+  "keywords": ["skills", "token-efficiency", "scaffold", "validation", "progressive-disclosure"]
+}
