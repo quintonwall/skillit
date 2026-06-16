@@ -7,9 +7,6 @@ tight budget. It teaches you to build skills — reusable leverage that speeds u
 sure they're *lean enough to run all day without eating your runway*. It teaches the structure, scaffolds it
 for you, and scores what you built.
 
-It's built to be its own worked example: a slim `SKILL.md`, deep material deferred to `references/`, and
-scoped tools. The plugin teaches token-efficient skills by being one.
-
 ## Why
 
 `skillit` helps you build skills that are lean enough to run constantly and fast enough to ship, test, and
@@ -21,10 +18,7 @@ and makes you *measure* the result with the native `/context` and `/cost` comman
 
 ## Installation
 
-`skillit` is a **Claude Code** plugin. Run the `/plugin` and `/skillit:*` steps below inside a Claude Code
-session (the CLI, or the Claude Code IDE integration) — *not* the standalone Claude desktop chat app, which
-doesn't support Claude Code plugins. The shell commands (`git clone`, `claude --plugin-dir …`) run in your
-terminal.
+`skillit` is a **Claude Code** plugin. You cannot use it in the Claude Desktop app.
 
 ### From the marketplace (recommended)
 
@@ -35,14 +29,9 @@ Add this repo as a marketplace, then install the plugin from inside Claude Code:
 /plugin install skillit@skillit
 ```
 
-`quintonwall/skillit` is the GitHub `owner/repo` shorthand; a full `https://github.com/quintonwall/skillit.git`
-URL works too. Update later with `/plugin marketplace update skillit`.
+Update later with `/plugin marketplace update skillit`.
 
 ### Locally (for development)
-
-When you're hacking on `skillit` itself, load the checkout directly with the `--plugin-dir` flag instead of
-the marketplace install flow. This is the fastest dev loop and avoids the marketplace-registration issues
-that can crop up with local installs.
 
 **1. Clone the repo:**
 
@@ -50,8 +39,7 @@ that can crop up with local installs.
 git clone https://github.com/quintonwall/skillit.git
 ```
 
-**2. Launch the Claude Code CLI pointed at the checkout.** Pass the plugin directory with `--plugin-dir`
-(repeat the flag to load more than one plugin):
+**2. Launch the Claude Code CLI pointed at the checkout.** Pass the plugin directory with `--plugin-dir`:
 
 ```bash
 claude --plugin-dir /path/to/skillit
@@ -68,19 +56,6 @@ can safely test changes even if you also have `skillit` installed from the marke
 
 > There is **no** `/plugin-dir` slash command — local loading is the `--plugin-dir` launch flag only.
 
-**3. Iterate without restarting.** After editing any plugin file (skills, commands, agents, hooks), reload
-in-session:
-
-```text
-/reload-plugins
-```
-
-This re-reads skills, agents, hooks, commands, and plugin MCP/LSP servers. (If the plugin exposes MCP
-servers with non-deferred tools, Claude will ask you to confirm with `/reload-plugins --force`, since
-reloading invalidates the prompt cache.)
-
-If you'd rather install it like a normal user, see [From the marketplace (recommended)](#from-the-marketplace-recommended)
-above.
 
 ### Verify it loaded
 
@@ -90,17 +65,14 @@ Whichever route you used, confirm the plugin is live:
 /skillit:verify
 ```
 
-Plugin commands are namespaced with the plugin name, so you type `/skillit:verify` (and `/skillit:skill-new`,
-`/skillit:skill-validate`) — the `skillit:` prefix is required, not just a display label.
-
 If it loaded correctly, Claude recognizes the `skill-builder` skill plus the `/skillit:skill-new` and
-`/skillit:skill-validate` commands, and you'll get a witty "sizzling" confirmation. If nothing happens,
+`/skillit:skill-validate` commands, and you'll get a confirmation message. If nothing happens,
 re-check the `--plugin-dir` path (or run `/reload-plugins`) and that you launched from the right directory.
 
 
 ## Quickstart
 
-There's no wizard — you just talk to Claude, and the `skill-builder` teacher walks you through it.
+Just talk to Claude, and the `skill-builder` teacher walks you through it.
 Here's a complete run, from idea to a shipped skill. (Numbers below are illustrative.)
 
 > **Testing locally?** Launch with `claude --plugin-dir .` (see [Locally (for development)](#locally-for-development)),
