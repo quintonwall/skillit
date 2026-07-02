@@ -1,6 +1,6 @@
 {
   "name": "skillit",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Teaches and validates token-efficient Claude Code skills. Guides you from idea to a slim, well-structured skill, then scores its token footprint. Make your skills sizzle.",
   "author": {
     "name": "Quinton Wall",

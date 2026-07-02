@@ -66,7 +66,8 @@ Whichever route you used, confirm the plugin is live:
 ```
 
 If it loaded correctly, Claude recognizes the `skill-builder` skill plus the `/skillit:skill-new`,
-`/skillit:skill-validate`, and `/skillit:skill-audit` commands, and you'll get a confirmation message. If nothing happens,
+`/skillit:skill-validate`, `/skillit:skill-audit`, and `/skillit:skill-optimize` commands, and you'll get a
+confirmation message. If nothing happens,
 re-check the `--plugin-dir` path (or run `/reload-plugins`) and that you launched from the right directory.
 
 
@@ -205,6 +206,34 @@ lean without you scoring them by hand.
 > lean?* For *is the output still good?* after trimming, hand the skill to Anthropic's `/skill-creator` to
 > benchmark behavior (see [below](#how-skillit-relates-to-the-official-skill-creator)).
 
+## Not interested in learning? No problem — skillit can do the work for you
+
+Everything above teaches as it goes: skillit narrates each principle so you come away able to author skills
+yourself. That's the default, and it's the point. But sometimes you don't want a lesson — you want the skill
+fixed and your afternoon back. That's what `/skillit:skill-optimize` is for. It scores, **applies the fixes
+directly to the files**, and hands you a diff instead of a walkthrough:
+
+```text
+You:  /skillit:skill-optimize skills/blog-writer
+skillit:  blog-writer
+            Grade      8/12 → 12/12
+            Always-on  412 → 140 chars   (-272)
+            Body       210 → 44 lines    (moved style guide → references/style.md)
+            Changes    • rewrote description (dropped 9-phrase trigger list)
+                       • extracted style guide + examples to references/
+                       • scoped allowed-tools: Read, Write
+          Review with `git diff`, then run /context and /cost to confirm the savings.
+```
+
+Point it at one skill, a directory, or `--all` to optimize every skill in the project in one shot:
+
+```text
+You:  /skillit:skill-optimize --all
+```
+
+It edits in place and leans on git as the safety net, so review the diff before committing. Want the *why*
+behind a change? Ask `skill-builder` — that's the teaching mode. `skill-optimize` is the do-it-for-me mode.
+
 ## What's inside
 
 | Component | What it does |
@@ -213,6 +242,7 @@ lean without you scoring them by hand.
 | `/skillit:skill-new` | Scaffolds a best-practice 3-tier skill from your idea. |
 | `/skillit:skill-validate` | Scores one skill against the rubric (via the `skill-scorer` subagent) and lists prioritized fixes. |
 | `/skillit:skill-audit` | Scores **every** skill in your project at once and returns one ranked table, worst-offender first, with the combined always-on token footprint. |
+| `/skillit:skill-optimize` | **Applies** the fixes for you — scores a skill (or all of them), edits in place, and reports a diff instead of teaching. The do-it-for-me counterpart to `skill-builder`. |
 | `skill-scorer` agent | Does the heavy scoring off your main context, then returns a compact scorecard. |
 | `references/` | The durable knowledge: anatomy, frontmatter, token-optimization, prompting, rubric. |
 | hook | A cheap nudge to run `/skillit:skill-validate` after you edit a `SKILL.md`. No model call. |
