@@ -65,8 +65,8 @@ Whichever route you used, confirm the plugin is live:
 /skillit:verify
 ```
 
-If it loaded correctly, Claude recognizes the `skill-builder` skill plus the `/skillit:skill-new` and
-`/skillit:skill-validate` commands, and you'll get a confirmation message. If nothing happens,
+If it loaded correctly, Claude recognizes the `skill-builder` skill plus the `/skillit:skill-new`,
+`/skillit:skill-validate`, and `/skillit:skill-audit` commands, and you'll get a confirmation message. If nothing happens,
 re-check the `--plugin-dir` path (or run `/reload-plugins`) and that you launched from the right directory.
 
 
@@ -141,13 +141,78 @@ You:  /cost      → this session: $0.04
 That `+0.3k` always-on is the whole point: a skill lean enough to run all day without denting runway.
 **You're done** — next time you say *"I'm cutting a release,"* the skill fires automatically.
 
+## Optimize an existing skill (or all of them)
+
+You don't have to start from an idea. If you already have skills — one you wrote, one you inherited, or a
+whole folder of them — skillit will look at them and make them lean.
+
+### One skill
+
+Just ask. The `skill-builder` teacher triggers on "improve" and "optimize," so any of these work:
+
+```text
+You:  Look at my blog-writer skill and optimize it.
+You:  This SKILL.md feels heavy — can you trim it?
+```
+
+Or point the scorer straight at it to get the graded scorecard and a prioritized fix list:
+
+```text
+You:  /skillit:skill-validate skills/blog-writer
+skillit:  Scorecard — blog-writer
+            Description quality ...... 1/2   (3 sentences, includes a trigger-phrase list)
+            Body size & focus ........ 1/2   (210 lines — style guide belongs in references/)
+            Progressive disclosure ... 0/2   (no references/; everything inline)
+            Tool scoping ............. 2/2   (allowed-tools: Read, Write)
+            Frontmatter validity ..... 2/2
+            Prompting craft .......... 2/2
+            Grade: 8/12 — Warming up
+          Top fixes: 1) cut the phrase list from the description  2) move the
+          style guide into references/style.md and link to it  3) …
+```
+
+Then hand the fixes back to the teacher — *"apply those fixes"* — and it edits the skill with you, one
+change at a time, highest-leverage first (description → body → runtime). Re-run `/context` and `/cost` to
+see the savings.
+
+### Every skill in the project
+
+To see all your skills at once — and the **total** always-on cost they add to every session — run the audit:
+
+```text
+You:  /skillit:skill-audit
+skillit:  Skill          Grade   Always-on   Body    Top fix
+          ────────────────────────────────────────────────────────────────
+          blog-writer     8/12    412 chars   210 ln  Cut phrase list from description
+          changelog       9/12    280 chars    90 ln  Move examples into references/
+          release-notes  12/12    140 chars    42 ln  —
+          ────────────────────────────────────────────────────────────────
+          Combined always-on: ~832 chars across 3 skills.
+          Biggest offender: blog-writer. Fix it first.
+```
+
+`skill-audit` globs every `SKILL.md` in the project, scores each one in parallel (off your main context),
+and ranks them worst-first so you know where to spend your time. From there, just tell skillit which to fix:
+
+```text
+You:  Optimize blog-writer and changelog.
+```
+
+skillit walks each one through the same trim → validate → re-measure loop, so a whole folder of skills gets
+lean without you scoring them by hand.
+
+> **Structure, not output quality.** skillit's optimization is about token footprint and structure — *is it
+> lean?* For *is the output still good?* after trimming, hand the skill to Anthropic's `/skill-creator` to
+> benchmark behavior (see [below](#how-skillit-relates-to-the-official-skill-creator)).
+
 ## What's inside
 
 | Component | What it does |
 | --- | --- |
 | `skill-builder` skill | A patient teacher that guides you idea → validated skill, one concept at a time, and answers questions as you go. Trigger it by asking to build, improve, or learn about a skill. |
 | `/skillit:skill-new` | Scaffolds a best-practice 3-tier skill from your idea. |
-| `/skillit:skill-validate` | Scores a skill against the rubric (via the `skill-scorer` subagent) and lists prioritized fixes. |
+| `/skillit:skill-validate` | Scores one skill against the rubric (via the `skill-scorer` subagent) and lists prioritized fixes. |
+| `/skillit:skill-audit` | Scores **every** skill in your project at once and returns one ranked table, worst-offender first, with the combined always-on token footprint. |
 | `skill-scorer` agent | Does the heavy scoring off your main context, then returns a compact scorecard. |
 | `references/` | The durable knowledge: anatomy, frontmatter, token-optimization, prompting, rubric. |
 | hook | A cheap nudge to run `/skillit:skill-validate` after you edit a `SKILL.md`. No model call. |
